@@ -6,8 +6,8 @@ PWD=$(shell pwd)
 
 VERILOG_SOURCES = $(PWD)/               # provide your design path
 
-TOPLEVEL :=           # design file
-MODULE   :=     # test file
+TOPLEVEL := Elevator_controller        
+MODULE   := test_elevator_controller
 
 include $(shell cocotb-config --makefiles)/Makefile.sim
 
