@@ -47,7 +47,10 @@ The following error is seen if expected result is not acheived
 ```
 assert dut.out.value == A, "Randomised test failed because, selected input was inp{B} and expected output was {A} but the output from DUT is {OUT} ".format(B=dut.sel.value,A='{0:03b}'.format(A), OUT=dut.out.value)
 ```
+When the test is run bug is found at :
+```
 
+```
 
 #### Test2 ####
 Instead of a randomised test, here the the test specifically aims for capturing the bug when 'sel' becomes 13.<br>
@@ -65,31 +68,79 @@ The output from the DUT is compared with the inp13 as the 'sel' was given value 
 ```
 assert dut.out.value == B, "Test failed, because selected input was inp13 and expected output was {B} but the output from DUT is {OUT} ".format(B=dut.inp13.value, OUT=dut.out.value)
 ```
+When this test was done the bug got exopsed:
+```
 
-## Test Scenario **(Important)**
-- Test Inputs: a=7 b=5
-- Expected Output: sum=12
+```
+
+#### Test3 ####
+This test is for capturing the bug when the 'sel' is equal to 30<br> Values assigned to inp30 and sel:
+
+```
+A=3
+inp_sel=30
+
+dut.inp30.value=A
+dut.sel.value=inp_sel
+
+```
+The output from the DUT is compared with the inp30 as the 'sel' was given value equal to 30. If the values don't match a error message is thrown by the assert statement:
+
+
+```
+assert dut.out.value == A, "Test failed, because selected input was inp30 and expected output was {A} but the output from DUT is {OUT} ".format(A=dut.inp30.value, OUT=dut.out.value)
+
+```
+
+
+## Test Scenario ##
+#### Test1
+- It is a randomised test covering conditions where sel is given different values
+- Expected Output when 'sel' was equal to : 
 - Observed Output in the DUT dut.sum=2
 
 Output mismatches for the above inputs proving that there is a design bug
 
-## Design Bug
-Based on the above test input and analysing the design, we see the following
+#### Test2
+- Testing with value of 'sel' = 13, inp12=2 and inp13=3
+- Expected Output: out=3
+- Observed Output in the DUT dut.out=2
 
+Output mismatches for the above inputs proving that there is a design bug
+
+#### Test3
+- Testing with value of 'sel'=30 and inp30=3
+- Expected Output: out=12
+- Observed Output in the DUT dut.out=0
+
+Output mismatches for the above inputs proving that there is a design bug
+
+## Design Bug
+Based on the above test input and analysing the design, we see the following bugs:
+
+### From Test1 and Test2
 ```
- always @(a or b) 
-  begin
-    sum = a - b;             ====> BUG
-  end
+      5'b01101: out = inp12;
+      5'b01101: out = inp13;        => for the case of 'sel'=12, nothing is defined so it goes to 
+                                       default case when 'sel'=12 and when 'sel'=13 the output becomes equal to inp12.
+ 
 ```
-For the adder design, the logic should be ``a + b`` instead of ``a - b`` as in the design code.
+Here, the first line should be ``5'b01100: out = inp12;`` instead of ``5'b01101: out = inp12;`` as in the design code.
+
+### From Test3
+```
+      5'b11101: out = inp29;                
+      default: out = 0;
+    endcase                         =>Here the case where 'sel'=30 is not included, so it gets directed to default case.
+```
+Here, ``5'b11110: out = inp30;`` should be added after ``5'b11101: out = inp29;``.
 
 ## Design Fix
 Updating the design and re-running the test makes the test pass.
 
-![](https://i.imgur.com/5XbL1ZH.png)
 
-The updated design is checked in as adder_fix.v
+
+The updated design is checked in as 
 
 ## Verification Strategy
 
