@@ -1,4 +1,5 @@
 # Multiplexer Design Verification
+The inputs of the multiplexer module are 31 two bit inputs( inp0,inp1,inp2,...inp30) and a four bit 'sel'. The output from the module is 'out' which is in two bits. A properly designed multiplexer selects one of the 31 inputs from inp0,inp1,inp2,...inp30 based on the value given to input 'sel' and gives that input as the 'out' value.
 
 The verification is done using [Vyoma's UpTickPro](https://vyomasystems.com).
 
@@ -7,17 +8,42 @@ The verification is done using [Vyoma's UpTickPro](https://vyomasystems.com).
 ## Verification Environment
 
 The process of verification is done using Python language with the help of [CoCoTb](https://www.cocotb.org/) library.
-<br> The inputs of te multiplexer module are 31 
+<br> All the inputs among inp0,inp1,...inp30 are assigned random 2 bit valued integers (ie. numbers from 0 t0 3) using:
 
-The values are assigned to the input port using 
 ```
-dut.a.value = 7
-dut.b.value = 5
+i0,i1,i2,i3,i4,i5,i6,i7,i8,i9,i10,i11,i12,i13,i14,i15,i16,i17,i18,i19,i20,i21,i22,i23,i24,i25,i26,i27,i28,i29,i30 = (random.randint(0, 3) for x in range(31))
 ```
+```
+dut.inp0.value=i0
+dut.inp1.value=i1
+dut.inp2.value=i2
+```
+.<br>.<br>.<br>
+```
+dut.inp30.value=i30
+```
+The input 'sel' is given different values in the different tests conducted.
 
-The assert statement is used for comparing the adder's outut to the expected value.
+#### Test1 ####
 
-The following error is seen:
+Here the inputs other than 'sel' is driven as seen above.<br>
+In this test the input 'sel' is given all posiible values (ie. 0 to 30 ) by using a 'for' loop:
+```
+for i in range(31):
+```
+```
+inp_sel=i
+```
+```
+ dut.sel.value=inp_sel
+ ```
+ The values of 'sel', current input being selected, expected output and the output from the DUT are displayed
+ ```
+ dut._log.info(f'INPUT={A:03} SEL={inp_sel:05} EXPECT={A:03} DUT={int(dut.out.value):05}')
+ ```
+ For each value of 'sel' the comparison between the expected output and the output from DUT is done using the assert statement.
+
+The following error is seen if expected result is not acheived
 ```
 assert dut.sum.value == A+B, "Adder result is incorrect: {A} + {B} != {SUM}, expected value={EXP}".format(
                      AssertionError: Adder result is incorrect: 7 + 5 != 2, expected value=12
