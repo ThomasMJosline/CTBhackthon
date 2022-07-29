@@ -2,11 +2,11 @@
 
 The verification is done using [Vyoma's UpTickPro](https://vyomasystems.com).
 
-<img src="level1_design1/hackmux.png">
+<img src="challenges-ThomasMJosline/level1_design1/hackmux.png">
 
 ## Verification Environment
 
-The [CoCoTb](https://www.cocotb.org/) based Python test is developed as explained. The test drives inputs to the Design Under Test (adder module here) which takes in 4-bit inputs *a* and *b* and gives 5-bit output *sum*
+The process of verification is done using Python language with the help of [CoCoTb](https://www.cocotb.org/) library. The test drives inputs to the Design Under Test (adder module here) which takes in 4-bit inputs *a* and *b* and gives 5-bit output *sum*
 
 The values are assigned to the input port using 
 ```
