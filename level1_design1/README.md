@@ -2,7 +2,7 @@
 
 The verification is done using [Vyoma's UpTickPro](https://vyomasystems.com).
 
-![](level1_design1/hackmux.png)
+<img src="level1_design1/hackmux.png">
 
 ## Verification Environment
 
