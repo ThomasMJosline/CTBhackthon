@@ -6,7 +6,8 @@ The verification is done using [Vyoma's UpTickPro](https://vyomasystems.com).
 
 ## Verification Environment
 
-The process of verification is done using Python language with the help of [CoCoTb](https://www.cocotb.org/) library. The test drives inputs to the Design Under Test (adder module here) which takes in 4-bit inputs *a* and *b* and gives 5-bit output *sum*
+The process of verification is done using Python language with the help of [CoCoTb](https://www.cocotb.org/) library.
+<br> The inputs of te multiplexer module are 31 
 
 The values are assigned to the input port using 
 ```
