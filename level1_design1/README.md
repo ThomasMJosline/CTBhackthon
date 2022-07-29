@@ -48,7 +48,7 @@ The following error is seen if expected result is not acheived
 ```
 assert dut.out.value == A, "Randomised test failed because, selected input was inp{B} and expected output was {A} but the output from DUT is {OUT} ".format(B=dut.sel.value,A='{0:03b}'.format(A), OUT=dut.out.value)
 ```
-When the test is run bug is found at :
+When the test is run bug is found at 'sel'=12 :
 ```
 
 ```
@@ -90,6 +90,10 @@ The output from the DUT is compared with the inp30 as the 'sel' was given value 
 
 ```
 assert dut.out.value == A, "Test failed, because selected input was inp30 and expected output was {A} but the output from DUT is {OUT} ".format(A=dut.inp30.value, OUT=dut.out.value)
+
+```
+When this test was done the bug got exopsed:
+```
 
 ```
 
