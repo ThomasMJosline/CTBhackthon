@@ -45,9 +45,27 @@ inp_sel=i
 
 The following error is seen if expected result is not acheived
 ```
-assert dut.sum.value == A+B, "Adder result is incorrect: {A} + {B} != {SUM}, expected value={EXP}".format(
-                     AssertionError: Adder result is incorrect: 7 + 5 != 2, expected value=12
+assert dut.out.value == A, "Randomised test failed because, selected input was inp{B} and expected output was {A} but the output from DUT is {OUT} ".format(B=dut.sel.value,A='{0:03b}'.format(A), OUT=dut.out.value)
 ```
+
+
+#### Test2 ####
+Instead of a randomised test, here the the test specifically aims for capturing the bug when 'sel' becomes 13.<br>
+Values are assigned to inp12, inp13 and sel :
+```
+A=2
+B=3 
+inp_sel=13 
+
+dut.inp12.value=A
+dut.inp13.value=B
+dut.sel.value=inp_sel
+```
+The output from the DUT is compared with the inp13 as the 'sel' was given value equal to 13. If the values don't match a error message is thrown by the assert statement:
+```
+assert dut.out.value == B, "Test failed, because selected input was inp13 and expected output was {B} but the output from DUT is {OUT} ".format(B=dut.inp13.value, OUT=dut.out.value)
+```
+
 ## Test Scenario **(Important)**
 - Test Inputs: a=7 b=5
 - Expected Output: sum=12
