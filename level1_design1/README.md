@@ -138,10 +138,12 @@ Here, ``5'b11110: out = inp30;`` should be added after ``5'b11101: out = inp29;`
 ## Design Fix
 Updating the design and re-running the test makes the test pass.
 
+$$$$image$$$$$
 
-
-The updated design is checked in as 
+The updated design is checked in as mux_fix.v
 
 ## Verification Strategy
+Analysis of the verilog code given for the design, helped to understand possible bugs. These bug were then confirmed through three tests.
 
 ## Is the verification complete ?
+Yes, the multiplexer design code is completely verified and three bugs were found.
