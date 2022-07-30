@@ -54,9 +54,9 @@ Initially 'reset' is set to 1 so that the system moves to 'IDLE' state and after
     dut._log.info(f'INP_BIT={1:03} SEQ_SEEN={int(dut.seq_seen.value):03}')
 
 ```
-The output from the DUT is compared with the inp13 as the 'sel' was given value equal to 13. If the values don't match a error message is thrown by the assert statement:
+The output from the DUT `seq_seen` should be equal to `1` at the end of the test. This is confirmed by an assert statement:
 ```
-assert dut.out.value == B, "Test failed, because selected input was inp13 and expected output was {B} but the output from DUT is {OUT} ".format(B=dut.inp13.value, OUT=dut.out.value)
+
 ```
 When this test was done the bug got exopsed:
 ```
@@ -89,34 +89,33 @@ When this test was done the bug got exopsed:
 
 
 ## Test Scenario ##
-#### Test1
-- It is a randomised test covering conditions where sel is given different values
-- Expected Output when 'sel' was equal to : 
-- Observed Output in the DUT dut.sum=2
+#### Test 1
+- It tests whether the design can detect the sequence `1,0,1,1` from `1,1,0,1,1`
+- Expected Output is `seq_seen = 1` atthe end of the test.
+- Observed Output in the DUT ``dut.seq_seen=0``
 
 Output mismatches for the above inputs proving that there is a design bug
 
-#### Test2
+#### Test 2
 - Testing with value of 'sel' = 13, inp12=2 and inp13=3
 - Expected Output: out=3
 - Observed Output in the DUT dut.out=2
 
 Output mismatches for the above inputs proving that there is a design bug
 
-#### Test3
-- Testing with value of 'sel'=30 and inp30=3
-- Expected Output: out=12
-- Observed Output in the DUT dut.out=0
-
-Output mismatches for the above inputs proving that there is a design bug
 
 ## Design Bug
 Based on the above test input and analysing the design, we see the following bugs:
 
-### From Test1 and Test2
+### From Test1
 ```
-      5'b01101: out = inp12;
-      5'b01101: out = inp13;        => for the case of 'sel'=12, nothing is defined so it goes to 
+            SEQ_1:
+      begin
+        if(inp_bit == 1)
+          next_state = IDLE;
+        else
+          next_state = SEQ_10;
+      end        => for the case of 'sel'=12, nothing is defined so it goes to 
                                        default case when 'sel'=12 and when 'sel'=13 the output becomes equal to inp12.
  
 ```
