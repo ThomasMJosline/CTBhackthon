@@ -134,7 +134,8 @@ Here, if the `inp_bit` is `0` then the next state should be `next_state = SEQ_10
 ## Design Fix
 Updating the design and re-running the test makes the test pass.
 
-$$$$image$$$$$
+![seq_fix](https://user-images.githubusercontent.com/84652232/181933584-5933a1a5-2d48-4167-8563-f147700a19c2.png)
+
 
 The updated design is checked in as seq_detect_1011_fix.v
 
