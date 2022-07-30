@@ -3,7 +3,8 @@ The inputs of the multiplexer module are 31 two bit inputs( inp0,inp1,inp2,...in
 
 The verification is done using [Vyoma's UpTickPro](https://vyomasystems.com).
 
-![hackmux](https://user-images.githubusercontent.com/84652232/181822344-6db71373-f658-43a5-b73d-d7427a1ee080.png)
+![github_id](https://user-images.githubusercontent.com/84652232/181879292-9b0057a9-14a5-48eb-8640-1f4c2f89e669.png)
+
 
 
 ## Verification Environment
