@@ -56,7 +56,7 @@ Initially 'reset' is set to 1 so that the system moves to 'IDLE' state and after
 ```
 The output from the DUT `seq_seen` should be equal to `1` at the end of the test. This is confirmed by an assert statement:
 ```
-
+assert dut.seq_seen.value == 1, "Test failed, because seq_seen output should be {B} but the output from DUT is {OUT} ".format(B=1, OUT=dut.seq_seen.value)
 ```
 When this test was done the bug got exopsed:
 ```
@@ -64,8 +64,7 @@ When this test was done the bug got exopsed:
 ```
 
 #### Test 2 ####
-Instead of a randomised test, here the the test specifically aims for capturing the bug when 'sel' becomes 13.<br>
-Values are assigned to inp12, inp13 and sel :
+This test is same as the Test 1 except for the sequence that is sent as input is `1,0,1,0,1,1`.
 ```
 A=2
 B=3 
@@ -97,9 +96,9 @@ When this test was done the bug got exopsed:
 Output mismatches for the above inputs proving that there is a design bug
 
 #### Test 2
-- Testing with value of 'sel' = 13, inp12=2 and inp13=3
-- Expected Output: out=3
-- Observed Output in the DUT dut.out=2
+- It tests whether the design can detect the sequence `1,0,1,1` from `1,0,1,0,1,1`
+- Expected Output is `seq_seen = 1` atthe end of the test.
+- Observed Output in the DUT ``dut.seq_seen=0``
 
 Output mismatches for the above inputs proving that there is a design bug
 
@@ -109,17 +108,16 @@ Based on the above test input and analysing the design, we see the following bug
 
 ### From Test1
 ```
-            SEQ_1:
-      begin
+    SEQ_1:
+    begin
         if(inp_bit == 1)
-          next_state = IDLE;
+        next_state = IDLE;
         else
-          next_state = SEQ_10;
-      end        => for the case of 'sel'=12, nothing is defined so it goes to 
-                                       default case when 'sel'=12 and when 'sel'=13 the output becomes equal to inp12.
+        next_state = SEQ_10;
+      end                                => Here if the ``inp_bit`` is `1` the next state is `IDLE`. That is a bug.
  
 ```
-Here, the first line should be ``5'b01100: out = inp12;`` instead of ``5'b01101: out = inp12;`` as in the design code.
+Here, if the `inp_bit` is `1` then the next state should be `next_state = SEQ_1`.
 
 ### From Test3
 ```
