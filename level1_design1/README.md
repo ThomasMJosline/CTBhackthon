@@ -95,7 +95,7 @@ assert dut.out.value == A, "Test failed, because selected input was inp30 and ex
 ```
 When this test was done the bug got exopsed:
 ```
-    AssertionError: Test failed, because selected input was inp30 and expected output was 11 but the output from DUT is 00 
+AssertionError: Test failed, because selected input was inp30 and expected output was 11 but the output from DUT is 00 
 ```
 
 
