@@ -2,8 +2,8 @@
 The 1011 Sequence detector is a Mealy based finite state machine consisting of 5 states.<br>
 <br>The inputs of the Sequence detector module are single bit 'inp_bit', single bit 'reset' and a clock('clk'). <br>The output from the module is 'seq_seen' which is also single bit. A bug free 1011 Sequence detector is used to identify whether, the input given through 'inp_bit' is in the order 1,0,1,1. When this happens the 'seq_seen' output goes high. The Sequence detector also finds valid sequences, that are overlapped with non-sequences.<br>
 <br>The verification is done using [Vyoma's UpTickPro](https://vyomasystems.com).
+![github_id](https://user-images.githubusercontent.com/84652232/181879292-9b0057a9-14a5-48eb-8640-1f4c2f89e669.png)
 
-![hackmux](https://user-images.githubusercontent.com/84652232/181822344-6db71373-f658-43a5-b73d-d7427a1ee080.png)
 
 
 ## Verification Environment
@@ -17,36 +17,53 @@ The bugs in the design arises when there are situations when valid sequences com
 These are the cases where, bugs in the design are seen.
 
 
+#### Test 1 ####
+This test, is for checking whether the design can identify the sequence ``1,0,1,1`` from `` 1,1,0,1,1 ``.<br>
+Initially 'reset' is set to 1 so that the system moves to 'IDLE' state and after this 'reset' is set 0 and inputs are given. These happen along the running of the clock.
+```
+    dut.reset.value = 1
+    await FallingEdge(dut.clk)  
+    dut.reset.value = 0
+    await FallingEdge(dut.clk)
 
-#### Test1 ####
+    cocotb.log.info('#### TEST  FOR  SEQUENCE DETECTOR #####')
 
-Here the inputs other than 'sel' is driven as seen above.<br>
-In this test the input 'sel' is given all posiible values (ie. 0 to 30 ) by using a 'for' loop:
-```
-for i in range(31):
-```
-```
-inp_sel=i
-```
-```
- dut.sel.value=inp_sel
- ```
- The values of 'sel', current input being selected, expected output and the output from the DUT are displayed
- ```
- dut._log.info(f'INPUT={A:03} SEL={inp_sel:05} EXPECT={A:03} DUT={int(dut.out.value):05}')
- ```
- For each value of 'sel' the comparison between the expected output and the output from DUT is done using the assert statement.
+    dut.inp_bit.value=1
 
-The following error is seen if expected result is not acheived
+    dut._log.info(f'INP_BIT={1:03}  SEQ_SEEN={int(dut.seq_seen.value):03}')
+
+    await FallingEdge(dut.clk)
+
+    dut.inp_bit.value=1
+
+    dut._log.info(f'INP_BIT={1:03} SEQ_SEEN={int(dut.seq_seen.value):03}')
+
+    await FallingEdge(dut.clk)
+
+    dut.inp_bit.value=0
+
+    dut._log.info(f'INP_BIT={0:03} SEQ_SEEN={int(dut.seq_seen.value):03}')
+
+    await FallingEdge(dut.clk)
+    dut.inp_bit.value=1
+
+    dut._log.info(f'INP_BIT={1:03} SEQ_SEEN={int(dut.seq_seen.value):03}')
+
+    await FallingEdge(dut.clk)
+    dut.inp_bit.value=1
+    dut._log.info(f'INP_BIT={1:03} SEQ_SEEN={int(dut.seq_seen.value):03}')
+
 ```
-assert dut.out.value == A, "Randomised test failed because, selected input was inp{B} and expected output was {A} but the output from DUT is {OUT} ".format(B=dut.sel.value,A='{0:03b}'.format(A), OUT=dut.out.value)
+The output from the DUT is compared with the inp13 as the 'sel' was given value equal to 13. If the values don't match a error message is thrown by the assert statement:
 ```
-When the test is run bug is found at 'sel'=12 :
+assert dut.out.value == B, "Test failed, because selected input was inp13 and expected output was {B} but the output from DUT is {OUT} ".format(B=dut.inp13.value, OUT=dut.out.value)
+```
+When this test was done the bug got exopsed:
 ```
 
 ```
 
-#### Test2 ####
+#### Test 2 ####
 Instead of a randomised test, here the the test specifically aims for capturing the bug when 'sel' becomes 13.<br>
 Values are assigned to inp12, inp13 and sel :
 ```
@@ -67,28 +84,8 @@ When this test was done the bug got exopsed:
 
 ```
 
-#### Test3 ####
-This test is for capturing the bug when the 'sel' is equal to 30<br> Values assigned to inp30 and sel:
-
-```
-A=3
-inp_sel=30
-
-dut.inp30.value=A
-dut.sel.value=inp_sel
-
-```
-The output from the DUT is compared with the inp30 as the 'sel' was given value equal to 30. If the values don't match a error message is thrown by the assert statement:
 
 
-```
-assert dut.out.value == A, "Test failed, because selected input was inp30 and expected output was {A} but the output from DUT is {OUT} ".format(A=dut.inp30.value, OUT=dut.out.value)
-
-```
-When this test was done the bug got exopsed:
-```
-
-```
 
 
 ## Test Scenario ##
