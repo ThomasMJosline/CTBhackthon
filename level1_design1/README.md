@@ -51,7 +51,7 @@ assert dut.out.value == A, "Randomised test failed because, selected input was i
 ```
 When the test is run bug is found at 'sel'=12 :
 ```
-
+AssertionError: Randomised test failed with, because, selected input was inp01100 and expected output was 001 but the output from DUT is 00 
 ```
 
 #### Test2 ####
@@ -72,7 +72,7 @@ assert dut.out.value == B, "Test failed, because selected input was inp13 and ex
 ```
 When this test was done the bug got exopsed:
 ```
-
+AssertionError: Test failed, because selected input was inp13 and expected output was 11 but the output from DUT is 10 
 ```
 
 #### Test3 ####
@@ -95,7 +95,7 @@ assert dut.out.value == A, "Test failed, because selected input was inp30 and ex
 ```
 When this test was done the bug got exopsed:
 ```
-
+    AssertionError: Test failed, because selected input was inp30 and expected output was 11 but the output from DUT is 00 
 ```
 
 
