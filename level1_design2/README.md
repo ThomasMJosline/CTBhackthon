@@ -1,7 +1,7 @@
 # Verification for 1011 Sequence Detector 
-The inputs of the Sequence detector module are 31 two bit inputs( inp0,inp1,inp2,...inp30) and a four bit 'sel'. The output from the module is 'out' which is in two bits. A properly designed multiplexer selects one of the 31 inputs from inp0,inp1,inp2,...inp30 based on the value given to input 'sel' and gives that input as the 'out' value.
-
-The verification is done using [Vyoma's UpTickPro](https://vyomasystems.com).
+The 1011 Sequence detector is a Mealy based finite state machine consisting of 5 states.<br>
+<br>The inputs of the Sequence detector module are single bit 'inp_bit', single bit 'reset' and a clock('clk'). <br>The output from the module is 'seq_seen' which is also single bit. A bug free 1011 Sequence detector is used to identify whether, the input given through 'inp_bit' is in the order 1,0,1,1. When this happens the 'seq_seen' output goes high. The Sequence detector also finds valid sequences, that are overlapped with non-sequences.<br>
+<br>The verification is done using [Vyoma's UpTickPro](https://vyomasystems.com).
 
 ![hackmux](https://user-images.githubusercontent.com/84652232/181822344-6db71373-f658-43a5-b73d-d7427a1ee080.png)
 
@@ -9,21 +9,14 @@ The verification is done using [Vyoma's UpTickPro](https://vyomasystems.com).
 ## Verification Environment
 
 The process of verification is done using Python language with the help of [CoCoTb](https://www.cocotb.org/) library.
-<br> All the inputs among inp0,inp1,...inp30 are assigned random 2 bit valued integers (ie. numbers from 0 t0 3) using:
+<br> <br>
+The bugs in the design arises when there are situations when valid sequences comes overlapping with the non-sequences.<br>
+- 1,1,0,1,1 
+- 1,0,1,0,1,1  <br>
 
-```
-i0,i1,i2,i3,i4,i5,i6,i7,i8,i9,i10,i11,i12,i13,i14,i15,i16,i17,i18,i19,i20,i21,i22,i23,i24,i25,i26,i27,i28,i29,i30 = (random.randint(0, 3) for x in range(31))
-```
-```
-dut.inp0.value=i0
-dut.inp1.value=i1
-dut.inp2.value=i2
-```
-.<br>.<br>.<br>
-```
-dut.inp30.value=i30
-```
-The input 'sel' is given different values in the different tests conducted.
+These are the cases where, bugs in the design are seen.
+
+
 
 #### Test1 ####
 
