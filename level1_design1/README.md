@@ -143,7 +143,8 @@ Here, ``5'b11110: out = inp30;`` should be added after ``5'b11101: out = inp29;`
 ## Design Fix
 Updating the design and re-running the test makes the test pass.
 
-$$$$image$$$$$
+![muxfix](https://user-images.githubusercontent.com/84652232/181877909-8c4ccec6-17c6-4edd-87c8-4edbf05c74e7.png)
+
 
 The updated design is checked in as mux_fix.v
 
