@@ -106,7 +106,7 @@ Output mismatches for the above inputs proving that there is a design bug
 ## Design Bug
 Based on the above test input and analysing the design, we see the following bugs:
 
-### From Test1
+### From Test 1
 ```
     SEQ_1:
     begin
@@ -119,14 +119,18 @@ Based on the above test input and analysing the design, we see the following bug
 ```
 Here, if the `inp_bit` is `1` then the next state should be `next_state = SEQ_1`.
 
-### From Test3
+### From Test 2
 ```
-      5'b11101: out = inp29;                
-      default: out = 0;
-    endcase                         =>Here the case where 'sel'=30 is not included, so it gets directed to default case.
+      SEQ_101:
+      begin
+        if(inp_bit == 1)
+          next_state = SEQ_1011;
+        else
+          next_state = IDLE;
+      end                                => Here if the ``inp_bit`` is `0` the next state is `IDLE`. That is a bug.
+ 
 ```
-Here, ``5'b11110: out = inp30;`` should be added after ``5'b11101: out = inp29;``.
-
+Here, if the `inp_bit` is `0` then the next state should be `next_state = SEQ_10`
 ## Design Fix
 Updating the design and re-running the test makes the test pass.
 
