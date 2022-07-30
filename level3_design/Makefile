@@ -4,7 +4,7 @@ TOPLEVEL_LANG ?= verilog
 
 PWD=$(shell pwd)
 
-VERILOG_SOURCES = $(PWD)/               # provide your design path
+VERILOG_SOURCES = $(PWD)/Elevator_Controller.v               # provide your design path
 
 TOPLEVEL := Controller
 MODULE   := test_elevator_controller
