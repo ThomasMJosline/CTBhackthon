@@ -64,19 +64,19 @@ AssertionError: Test failed, because seq_seen output should be 1 but the output 
 ```
 
 #### Test 2 ####
-This test is same as the Test 1 except for the sequence that is sent as input is `1,0,1,0,1,1`.
+This test is same as the Test 1 except for the sequence that is sent as input is `1,0,1,0,1,1`. Here a `for` loop is used to drive inputs which are already fed into a list:
 ```
-A=2
-B=3 
-inp_sel=13 
-
-dut.inp12.value=A
-dut.inp13.value=B
-dut.sel.value=inp_sel
+    A=[1,0,1,0,1,1]
+    for i in A:
+        B=i
+        dut.inp_bit.value=int(i)
+        dut._log.info(f'SEQ_SEEN={int(dut.seq_seen.value):03}')
+        
+        await FallingEdge(dut.clk)
 ```
-The output from the DUT is compared with the inp13 as the 'sel' was given value equal to 13. If the values don't match a error message is thrown by the assert statement:
+The output from the DUT ie. the `seq_seen` is compared with the expected output and a assert statement is made for generating the error message accordingly.
 ```
-assert dut.out.value == B, "Test failed, because selected input was inp13 and expected output was {B} but the output from DUT is {OUT} ".format(B=dut.inp13.value, OUT=dut.out.value)
+assert dut.seq_seen.value == 1, "Test failed, because seq_seen output should be {B} but the output from DUT is {OUT} ".format(B=1, OUT=dut.seq_seen.value)
 ```
 When this test was done the bug got exopsed following error message appeared:
 ```
