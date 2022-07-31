@@ -73,7 +73,7 @@ Here instead of `current_floor=current_floor+1` it should be `current_floor=curr
                     Down=1'd0;                              
                 end
 ```
-Here, if the `inp_bit` is `1` then the next state should be `next_state = SEQ_1`.
+Here the line ``current_floor = current_floor+1`` should be removed.
 
 ## Design Fix
 Updating the design and re-running the test makes the test pass.
@@ -84,8 +84,10 @@ Updating the design and re-running the test makes the test pass.
 The updated design is checked in as Elevator_controller_fix.v
 
 ## Verification Strategy
-The bug was inserted
+The bug was inserted for the hackathon purpose and the test cases were generated accordingly.
 
 ## Is the verification complete ?
-.
+In the design, there are some bugs that are related to the design. e.g.:
+-If the an input is given during the movement of the elevator, instead of moving to the firstly entered floor it starts moving to the last entered floor.
+-Speed of movement of the elevator. Instead of the design shown here, there should be a motor module that works according to the input and this motor controls the movement of the elevator.
 
