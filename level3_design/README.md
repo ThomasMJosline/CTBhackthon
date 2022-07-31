@@ -57,7 +57,7 @@ Here, if the `inp_bit` is `1` then the next state should be `next_state = SEQ_1`
 ## Design Fix
 Updating the design and re-running the test makes the test pass.
 
-![seq_fix](https://user-images.githubusercontent.com/84652232/181933584-5933a1a5-2d48-4167-8563-f147700a19c2.png)
+![elevatorfix](https://user-images.githubusercontent.com/84652232/182021154-3483e47b-da5c-4fd3-888d-653341266986.png)
 
 
 The updated design is checked in as Elevator_controller_fix.v
