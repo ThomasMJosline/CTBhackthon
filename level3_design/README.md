@@ -30,7 +30,7 @@ assert dut.y.value == 7, "Test failed, because it was expected to reach {B}th bu
 ```
 When this test was done the bug got exopsed and the error message appeared:
 ```
-
+ AssertionError: Test failed, because it was expected to reach 7th but DUT reached 01011
 ```
 
 
