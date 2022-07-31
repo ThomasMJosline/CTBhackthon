@@ -49,8 +49,29 @@ Output mismatches for the above inputs proving that there is a design bug
 Based on the above test input and analysing the design, we see the following bugs:
 
 ```
-                               => Here if the ``inp_bit`` is `1` the next state is `IDLE`. That is a bug.
+            begin
+                if(requested_floor < current_floor)
+                begin
+                    current_floor=current_floor+1;              => BUG
+                    door=1'd0;
+                    wait_floor=4'd0;
+                    Up=1'd0;
+                    Down=1'd1;
+                end                            
  
+```
+Here instead of `current_floor=current_floor+1` it should be `current_floor=current_floor-1`.
+
+
+```
+                else if(requested_floor == current_floor)
+                begin
+                    current_floor = current_floor+1;           => BUG
+                    door=1'd1;
+                    wait_floor=4'd1;
+                    Up=1'd0;
+                    Down=1'd0;                              
+                end
 ```
 Here, if the `inp_bit` is `1` then the next state should be `next_state = SEQ_1`.
 
