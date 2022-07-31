@@ -17,8 +17,6 @@ The bugs in the design arises when there are situations when valid sequences com
 
 These are the cases where, bugs in the design are seen.
 
-
-#### Test 1 ####
 This test, is for checking whether the design can identify the sequence ``1,0,1,1`` from `` 1,1,0,1,1 ``.<br>
 Initially 'reset' is set to 1 so that the system moves to 'IDLE' state and after this 'reset' is set 0 and inputs are given. These happen along the running of the clock.
 ```
@@ -68,7 +66,7 @@ AssertionError: Test failed, because seq_seen output should be 1 but the output 
 
 
 ## Test Scenario ##
-#### Test 1
+
 - It tests whether the design can detect the sequence `1,0,1,1` from `1,1,0,1,1`
 - Expected Output is `seq_seen = 1` atthe end of the test.
 - Observed Output in the DUT ``dut.seq_seen=0``
@@ -80,7 +78,6 @@ Output mismatches for the above inputs proving that there is a design bug
 ## Design Bug
 Based on the above test input and analysing the design, we see the following bugs:
 
-### From Test 1
 ```
     SEQ_1:
     begin
@@ -99,7 +96,7 @@ Updating the design and re-running the test makes the test pass.
 ![seq_fix](https://user-images.githubusercontent.com/84652232/181933584-5933a1a5-2d48-4167-8563-f147700a19c2.png)
 
 
-The updated design is checked in as 
+The updated design is checked in as Elevator_controller_fix.v
 
 ## Verification Strategy
 .
