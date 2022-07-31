@@ -88,6 +88,6 @@ The bug was inserted for the hackathon purpose and the test cases were generated
 
 ## Is the verification complete ?
 In the design, there are some bugs that are related to the design. e.g.:
--If the an input is given during the movement of the elevator, instead of moving to the firstly entered floor it starts moving to the last entered floor.
--Speed of movement of the elevator. Instead of the design shown here, there should be a motor module that works according to the input and this motor controls the movement of the elevator.
+- If the an input is given during the movement of the elevator, instead of moving to the firstly entered floor it starts moving to the last entered floor.
+- Speed of movement of the elevator. Instead of the design shown here, there should be a motor module that works according to the input and this motor controls the movement of the elevator.
 
