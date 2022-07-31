@@ -84,7 +84,7 @@ Updating the design and re-running the test makes the test pass.
 The updated design is checked in as Elevator_controller_fix.v
 
 ## Verification Strategy
-.
+The bug was inserted
 
 ## Is the verification complete ?
 .
