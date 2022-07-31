@@ -49,7 +49,7 @@ always @ (posedge clk)
             begin
                 if(requested_floor < current_floor)
                 begin
-                    current_floor=current_floor-1;
+                    current_floor=current_floor+1;
                     door=1'd0;
                     wait_floor=4'd0;
                     Up=1'd0;
