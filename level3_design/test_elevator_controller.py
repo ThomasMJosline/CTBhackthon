@@ -33,4 +33,4 @@ async def test_seq_bug1(dut):
         await FallingEdge(dut.clk)
 
     dut._log.info(f'UP={int(dut.Up.value):02} DOWN={int(dut.Down.value):02} DOOR={int(dut.door.value):02} WAITING={int(dut.wait_floor.value):02} CURRENT_FLOOR={int(dut.y.value):04}')
-    assert dut.y.value == 7, "Test failed, because it was expected to reach {B}th but DUT reached {OUT} ".format(B=7, OUT=dut.seq_seen.value)
+    assert dut.y.value == 7, "Test failed, because it was expected to reach {B}th but DUT reached {OUT} ".format(B=7, OUT=dut.y.value)
