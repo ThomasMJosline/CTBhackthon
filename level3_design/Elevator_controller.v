@@ -1,25 +1,3 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: Self 
-// Engineer: Self
-// 
-// Create Date: 18.07.2022 00:38:03
-// Design Name: Elevator Control System
-// Module Name: Controller
-// Project Name: Design of an FSM for an Elevator in Verilog HDL
-// Target Devices: Simulation Only
-// Tool Versions: Vivado 2019.1
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision: 1
-// Revision 0.01 - File Created
-// Additional Comments: Licence is Open Source
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
-
 module Controller(clk,reset,requested_floor,wait_floor,door,Up,Down,y);
 
 input clk,reset;
@@ -65,7 +43,7 @@ always @ (posedge clk)
                 end
                 else if(requested_floor == current_floor)
                 begin
-                    current_floor = requested_floor;
+                    current_floor = current_floor+1;
                     door=1'd1;
                     wait_floor=4'd1;
                     Up=1'd0;
