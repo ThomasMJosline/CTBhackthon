@@ -1,4 +1,3 @@
-# See LICENSE.vyoma for details
 
 import cocotb
 from cocotb.triggers import Timer
