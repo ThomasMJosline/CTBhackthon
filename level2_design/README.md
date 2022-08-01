@@ -39,7 +39,8 @@ When this test was done the bug got exopsed and the error message appeared:
 
 
 Failure of the design :
-![bug_elevator](https://user-images.githubusercontent.com/84652232/182100071-03d81375-e128-41c4-8160-a0e26e314438.png)
+![bugbit](https://user-images.githubusercontent.com/84652232/182203441-fa90fed6-80b2-40ee-86ec-3a2672a034a4.png)
+
 
 
 
