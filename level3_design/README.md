@@ -113,7 +113,7 @@ Updating the design and re-running the test makes the design pass test 1.
 The updated design is checked in as Elevator_controller_fix.v
 
 ## Verification Strategy
-The bug was inserted for the hackathon purpose and the test cases were generated accordingly.
+The first bug was inserted for the hackathon purpose and the test cases were generated accordingly. The second test was made by observing this design and then comparing with the practical model. 
 
 ## Is the verification complete ?
 In the design, there are some bugs that are related to the design. e.g.:
