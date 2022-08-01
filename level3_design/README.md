@@ -104,7 +104,8 @@ Here the line ``current_floor = current_floor+1`` should be removed.
 ## Design Fix
 Updating the design and re-running the test makes the design pass test 1.
 
-![elevatorfix](https://user-images.githubusercontent.com/84652232/182021154-3483e47b-da5c-4fd3-888d-653341266986.png)
+![ele](https://user-images.githubusercontent.com/84652232/182099769-f6d62a8c-1fa3-42fd-9503-2e8a27dc50a1.png)
+
 
 
 The updated design is checked in as Elevator_controller_fix.v
