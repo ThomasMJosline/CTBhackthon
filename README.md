@@ -1,5 +1,4 @@
 # Final Report - Capture the bug Hackathon
-Thomas M Josline
 
 ## Reports of each level design :
 - [Level1_Design1 : Multiplexer](https://github.com/vyomasystems-lab/challenges-ThomasMJosline/tree/master/level1_design1#readme)
