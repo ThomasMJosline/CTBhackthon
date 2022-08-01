@@ -51,6 +51,8 @@ assert dut.y.value == 7, "Test failed, because it was expected to reach {B}th bu
 ```
 
 Failure of the design :
+![bug_elevator](https://user-images.githubusercontent.com/84652232/182100071-03d81375-e128-41c4-8160-a0e26e314438.png)
+
 
 
 ## Test Scenario ##
