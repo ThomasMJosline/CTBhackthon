@@ -11,6 +11,8 @@ The Elevator Controller is a Mealy based finite state machine consisting of 3 st
 
 The process of verification is done using Python language with the help of [CoCoTb](https://www.cocotb.org/) library.
 <br> <br>
+
+#### Test 1 ####
 Initially, the elevator is at ground floor(`y=0`).In the test, input `requested_floor` is given as 7(i.e. to move to the floor):
 
 
@@ -33,19 +35,43 @@ When this test was done the bug got exopsed and the error message appeared:
  AssertionError: Test failed, because it was expected to reach 7th but DUT reached 01011
 ```
 
+#### Test 2 ####
+A elevator should work in such a manner, that it should move to the firstly entered floor if two inputs are given in order. This property is verified here:
+First the the input is given so as to move to 7th floor:
+```
+dut.requested_floor.value=7   
+```
+while this happens another input is given for moving to 2nd floor:
+```
+dut.requested_floor.value=2
+```
+Output from DUT is evaluated and the error message is generated with an assert statement:
+```
+assert dut.y.value == 7, "Test failed, because it was expected to reach {B}th but DUT reached {OUT} ".format(B=7, OUT=dut.seq_seen.value)
+```
 
+Failure of the design :
 
 
 ## Test Scenario ##
 
+#### Test 1 ####
 - The input given is `requested_floor=7`.
 - Expected Output at the end of the test is `y=7`,`Up=0`,`Down=0`,`door=1` and `wait_floor=1`
-- Observed Output in the DUT 
+- Observed Output in the DUT `UP=00 DOWN=01 DOOR=00 WAITING=00 CURRENT_FLOOR=0011`
 
 Output mismatches for the above inputs proving that there is a design bug
 
+#### Test 2 ####
+- The input given is `requested_floor=7` and while the elevator is moving another input is given `requested_floor=2`. The test ends in a time that is figured such that the elevator reaches the 7th floor
+- Expected Output at the end of the test is `y=7`,`Up=0`,`Down=0`,`door=1` and `wait_floor=1`
+- Observed Output in the DUT `UP=00 DOWN=01 DOOR=00 WAITING=00 CURRENT_FLOOR=0003`
+
+Output mismatches for the above inputs proving that there is a design bug
 
 ## Design Bug
+
+### From Test 1 ###
 Based on the above test input and analysing the design, we see the following bugs:
 
 ```
@@ -76,7 +102,7 @@ Here instead of `current_floor=current_floor+1` it should be `current_floor=curr
 Here the line ``current_floor = current_floor+1`` should be removed.
 
 ## Design Fix
-Updating the design and re-running the test makes the test pass.
+Updating the design and re-running the test makes the design pass test 1.
 
 ![elevatorfix](https://user-images.githubusercontent.com/84652232/182021154-3483e47b-da5c-4fd3-888d-653341266986.png)
 
